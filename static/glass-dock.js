@@ -197,6 +197,13 @@
 
   // Updates dock between horizontal bottom and vertical left format
   function updateDockMode(forceVertical) {
+    // On mobile phones, ALWAYS keep dock horizontal at the bottom
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      document.body.classList.remove('dock-vertical');
+      return;
+    }
+
     const isPlayground = (document.body.dataset.activeTab || 'playground') === 'playground';
     const workspace = document.getElementById('playground-workspace');
     const hasMessages = workspace ? workspace.classList.contains('has-messages') : false;
@@ -233,6 +240,9 @@
     if (workspace) {
       observer.observe(workspace, { attributes: true, attributeFilter: ['class'] });
     }
+
+    // Re-evaluate dock mode on resize (e.g. phone rotation)
+    window.addEventListener('resize', () => updateDockMode());
 
     window.SingularityGlassDock = {
       updateDockMode,

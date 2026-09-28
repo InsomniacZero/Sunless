@@ -1332,3 +1332,53 @@ html.theme-transitioning *::after {
               color 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
   transition-delay: 0s !important;
 }
+
+/* ===================================================================
+   Phone-Only: Force dock horizontal bottom (never vertical/left)
+   =================================================================== */
+@media screen and (max-width: 768px) {
+  /* Override vertical dock positioning even if class is present briefly */
+  body.dock-vertical .glass-dock-container {
+    left: 50% !important;
+    top: auto !important;
+    bottom: 12px !important;
+    transform: translate3d(-50%, 0, 0) !important;
+  }
+
+  body.dock-vertical .glass-dock {
+    flex-direction: row !important;
+    padding: 6px 10px !important;
+    gap: 4px !important;
+    border-radius: 18px !important;
+  }
+
+  body.dock-vertical .glass-dock-divider {
+    width: 1px !important;
+    height: 18px !important;
+    margin: 0 2px !important;
+  }
+
+  /* Remove vertical dock clearance on chat columns */
+  body.dock-vertical .playground-chat-column {
+    padding-left: 0 !important;
+  }
+
+  body.dock-vertical .claude-top-bar {
+    padding-left: 10px !important;
+  }
+
+  body.dock-vertical .claude-chat-scroll {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  /* Active-chat chatbox: sit above the horizontal dock */
+  .claude-playground-container.has-messages .claude-flow-wrapper {
+    bottom: 68px !important;
+    width: calc(100vw - 16px) !important;
+  }
+
+  .claude-playground-container.has-messages .claude-chat-scroll {
+    padding-bottom: 200px !important;
+  }
+}

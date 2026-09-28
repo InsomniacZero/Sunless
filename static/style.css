@@ -6072,3 +6072,186 @@ body.dock-vertical .claude-playground-container.has-messages .claude-flow-wrappe
     height: 50% !important;
   }
 }
+
+/* ===================================================================
+   Phone-Only Responsive Overrides (≤768px)
+   Targets smartphones specifically. Does NOT affect desktop or tablet.
+   =================================================================== */
+@media screen and (max-width: 768px) {
+
+  /* ── Force dock to ALWAYS stay horizontal at bottom ── */
+  .glass-dock-container {
+    bottom: 12px !important;
+    left: 50% !important;
+    top: auto !important;
+    transform: translate3d(-50%, 0, 0) !important;
+  }
+
+  .glass-dock {
+    flex-direction: row !important;
+    padding: 6px 10px !important;
+    gap: 4px !important;
+    border-radius: 18px !important;
+  }
+
+  .glass-dock-divider {
+    width: 1px !important;
+    height: 18px !important;
+    margin: 0 2px !important;
+  }
+
+  .glass-dock-btn {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+  }
+
+  .glass-dock-btn svg {
+    width: 17px !important;
+    height: 17px !important;
+  }
+
+  /* Tooltips are useless on touch — hide them */
+  .glass-dock-tooltip {
+    display: none !important;
+  }
+
+  /* ── Chat column: remove min-width that overflows on narrow screens ── */
+  .playground-chat-column {
+    min-width: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  /* ── Chat messages: fit on screen ── */
+  .claude-chat-scroll {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-bottom: 200px !important;
+  }
+
+  .chat-messages-list {
+    gap: 14px !important;
+    padding-bottom: 16px !important;
+  }
+
+  .chat-msg {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .chat-msg.user .msg-bubble {
+    max-width: 85% !important;
+    padding: 10px 14px !important;
+    font-size: 13.5px !important;
+    border-radius: 14px !important;
+    border-bottom-right-radius: 4px !important;
+  }
+
+  .chat-msg.assistant .msg-bubble {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* Code blocks in messages: prevent horizontal overflow */
+  .chat-msg .chat-code-card {
+    max-width: calc(100vw - 32px) !important;
+    overflow-x: auto !important;
+  }
+
+  .chat-msg .chat-code-card pre {
+    font-size: 12px !important;
+  }
+
+  /* ── Input card: compact for phone ── */
+  .claude-input-card {
+    min-height: 80px !important;
+    max-width: 100% !important;
+    border-radius: 18px !important;
+    padding: 12px 14px 10px 14px !important;
+  }
+
+  .claude-textarea {
+    font-size: 14px !important;
+    min-height: 36px !important;
+    max-height: 140px !important;
+    padding: 2px 2px 4px 2px !important;
+  }
+
+  /* ── Floating chatbox in active chat: full width on phone ── */
+  .claude-playground-container.has-messages .claude-flow-wrapper {
+    width: calc(100vw - 16px) !important;
+    bottom: 68px !important;
+    padding: 0 !important;
+  }
+
+  /* ── Top bar: tighter on phone ── */
+  .claude-top-bar {
+    padding: 6px 10px !important;
+  }
+
+  .claude-top-bar .playground-model-switcher-btn {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+  }
+
+  /* ── Response action buttons: smaller ── */
+  .response-actions {
+    gap: 2px !important;
+  }
+
+  .response-actions button {
+    padding: 4px 6px !important;
+  }
+
+  .response-actions button svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  /* ── User message action buttons: smaller ── */
+  .user-msg-actions button {
+    padding: 3px 5px !important;
+  }
+
+  /* ── Thinking block: compact ── */
+  .thinking-block {
+    padding: 8px 10px !important;
+    font-size: 12.5px !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* ── Hero section on empty playground: tighter ── */
+  .claude-hero-section {
+    padding: 0 8px !important;
+  }
+
+  .claude-hero-greeting {
+    font-size: 20px !important;
+  }
+
+  .claude-suggestion-pills {
+    gap: 6px !important;
+    padding: 0 4px !important;
+  }
+
+  .claude-pill-btn {
+    font-size: 12px !important;
+    padding: 8px 12px !important;
+  }
+
+  /* ── Settings modals: full width on phone ── */
+  .claude-settings-content {
+    width: calc(100vw - 24px) !important;
+    max-width: 100% !important;
+    max-height: 85dvh !important;
+  }
+
+  /* ── Model selector popover: fit screen ── */
+  .custom-select-popover {
+    max-width: calc(100vw - 24px) !important;
+    max-height: 60dvh !important;
+  }
+}
