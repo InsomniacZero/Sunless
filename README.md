@@ -75,13 +75,40 @@ pkg update && pkg install python git -y && git clone https://github.com/Insomnia
 
 ---
 
-## 🌐 Phone / Tablet Access
+## 🌐 Playing on Your Phone / Tablet (Ngrok Tunnel)
 
-1. In the proxy terminal, choose **`[5] Cloud Tunnel Control`** → **`[1] Start Public Tunnel`**.
-2. Copy the generated URL (e.g. `https://xxxx-xx-xx.ngrok-free.app/v1/chat/completions`).
-3. Paste it into Janitor AI's **Reverse Proxy URL** on your phone.
+By default, Sunless runs on `localhost` — that means it only works on the same computer. If you want to use Janitor AI on your **phone, tablet, or a different device**, you need to create a **public tunnel** using ngrok. Here's how:
 
-> Requires a free [ngrok account](https://dashboard.ngrok.com/signup) and authtoken (set via menu option `[2]`).
+### Step 1: Get a Free Ngrok Account (1 minute, one-time only)
+1. Go to **[dashboard.ngrok.com/signup](https://dashboard.ngrok.com/signup)** and sign up (Google/GitHub login works).
+2. After signing in, go to **[Your Authtoken](https://dashboard.ngrok.com/get-started/your-authtoken)**.
+3. Copy your authtoken (it looks like `2abc123def456_xxxxxxxxx`).
+
+### Step 2: Set Your Authtoken in Sunless (one-time only)
+1. Open Sunless terminal menu: run `nephis --menu` (or `./start.sh menu`).
+2. Select **`[5] Cloud Tunnel Control`**.
+3. Select **`[2] Set Ngrok Authtoken`**.
+4. Paste your token and press Enter.
+
+### Step 3: Start the Tunnel
+1. In the same Cloud Tunnel menu, select **`[1] Start Public Tunnel`**.
+2. Sunless will give you a public URL like:
+   ```
+   https://abcd-12-34-56.ngrok-free.app
+   ```
+
+### Step 4: Use It on Your Phone
+1. On your phone, open [janitorai.com](https://janitorai.com) → any character → **API Settings**.
+2. Set **Reverse Proxy URL** to your tunnel URL + the path:
+   ```
+   https://abcd-12-34-56.ngrok-free.app/v1/chat/completions
+   ```
+3. Set everything else the same as the table above (API Key: `anything`, Model: `gemini-3.8-flash-thinking`, Max Tokens: `0`).
+4. Start chatting! 🎉
+
+> ⚠️ **Note**: The ngrok URL changes every time you restart the tunnel. Just copy the new one and update Janitor AI's settings.
+> 
+> 💡 **Tip**: Keep Sunless running on your PC while you play on your phone. Your phone connects to your PC through the tunnel.
 
 ---
 
