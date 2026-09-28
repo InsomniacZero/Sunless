@@ -26,6 +26,22 @@ echo " ║              Gemini Gateway for Janitor AI Roleplay               ║
 echo " ╚═══════════════════════════════════════════════════════════════════╝"
 echo -e "${RESET}"
 
+# ── Auto-Update from GitHub ──────────────────────────────────────────────────
+# Silently pulls latest changes every startup. Fails gracefully if offline.
+if [ -d ".git" ] && command -v git &>/dev/null; then
+    # Stash any local runtime changes (e.g. ngrok.yml token edits)
+    git stash -q 2>/dev/null || true
+    BEFORE=$(git rev-parse HEAD 2>/dev/null)
+    git pull --ff-only origin main -q 2>/dev/null || true
+    AFTER=$(git rev-parse HEAD 2>/dev/null)
+    # Restore user's local changes on top
+    git stash pop -q 2>/dev/null || true
+    if [ "$BEFORE" != "$AFTER" ]; then
+        echo -e "${GREEN}${BOLD} ✓ Auto-updated to latest version!${RESET}"
+        echo -e "${DIM}   Changelog: https://github.com/InsomniacZero/Sunless/commits/main${RESET}\n"
+    fi
+fi
+
 # Check for Python 3
 if command -v python3 &>/dev/null; then
     PY_CMD="python3"

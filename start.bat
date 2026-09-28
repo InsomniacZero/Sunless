@@ -15,6 +15,24 @@ echo                 Gemini Gateway for Janitor AI Roleplay
 echo  ======================================================================
 echo.
 
+:: ── Auto-Update from GitHub ─────────────────────────────────────────────
+:: Silently pulls latest changes every startup. Fails gracefully if offline.
+if exist ".git" (
+    where git >nul 2>nul
+    if !errorlevel! equ 0 (
+        git stash -q >nul 2>nul
+        for /f "tokens=*" %%A in ('git rev-parse HEAD 2^>nul') do set "BEFORE=%%A"
+        git pull --ff-only origin main -q >nul 2>nul
+        for /f "tokens=*" %%A in ('git rev-parse HEAD 2^>nul') do set "AFTER=%%A"
+        git stash pop -q >nul 2>nul
+        if not "!BEFORE!"=="!AFTER!" (
+            echo  [*] Auto-updated to latest version!
+            echo      Changelog: https://github.com/InsomniacZero/Sunless/commits/main
+            echo.
+        )
+    )
+)
+
 :: 1. Check for Python
 where python >nul 2>nul
 if %errorlevel% neq 0 (
