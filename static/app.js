@@ -3581,6 +3581,7 @@ const HERO_DIALOGUES = [
 ];
 
 let heroDialogueDeck = [];
+let heroDialogueTimer = null;
 
 function getNextHeroDialogue() {
   if (!heroDialogueDeck.length) {
@@ -3608,6 +3609,17 @@ function updateHeroGreeting(forceNew = true) {
     greetingEl.style.opacity = '1';
     greetingEl.style.transform = 'translateY(0)';
   }, 160);
+}
+
+function startHeroDialogueAutoCycle(intervalMs = 10000) {
+  if (heroDialogueTimer) clearInterval(heroDialogueTimer);
+  heroDialogueTimer = setInterval(() => {
+    const heroEl = document.getElementById('playground-hero');
+    const container = document.getElementById('claude-playground-container');
+    if ((heroEl && !heroEl.classList.contains('hidden')) || (container && !container.classList.contains('has-messages'))) {
+      updateHeroGreeting(true);
+    }
+  }, intervalMs);
 }
 
 // ===================================================================
@@ -4780,11 +4792,15 @@ function initPlayground() {
   const inputModelName = document.getElementById('input-model-name');
   if (inputModelName) inputModelName.textContent = formatModelDisplayName(state.selectedModel || 'gemini-3.8-flash');
 
-  // Initialize dynamic time-aware greeting
+  // Initialize dynamic time-aware greeting & auto-cycling (every 10s)
   updateHeroGreeting(false);
+  startHeroDialogueAutoCycle(10000);
   const heroTrigger = document.getElementById('claude-hero-trigger');
   if (heroTrigger) {
-    heroTrigger.addEventListener('click', () => updateHeroGreeting(true));
+    heroTrigger.addEventListener('click', () => {
+      updateHeroGreeting(true);
+      startHeroDialogueAutoCycle(10000);
+    });
   }
 
   // Parameters Popover Toggle (Settings)
@@ -5009,13 +5025,6 @@ function initPlayground() {
     });
   }
 
-  // Voice buttons
-  document.getElementById('btn-voice-input')?.addEventListener('click', () => {
-    showToast('Voice dictation ready (Microphone active)', 'info');
-  });
-  document.getElementById('btn-voice-chat')?.addEventListener('click', () => {
-    showToast('Voice conversation mode ready', 'info');
-  });
   // Clear Chat Button Handler
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
@@ -5033,6 +5042,7 @@ function initPlayground() {
       const heroEl = document.getElementById('playground-hero');
       if (heroEl) heroEl.classList.remove('hidden');
       updateHeroGreeting(true);
+      startHeroDialogueAutoCycle(10000);
       if (input) {
         input.value = '';
         input.style.height = 'auto';

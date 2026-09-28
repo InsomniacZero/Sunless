@@ -1381,4 +1381,108 @@ html.theme-transitioning *::after {
   .claude-playground-container.has-messages .claude-chat-scroll {
     padding-bottom: 200px !important;
   }
+
+  /* ── Settings Modal: Non-congested Mobile Layout ── */
+  .claude-settings-backdrop {
+    padding: 10px !important;
+    align-items: flex-end !important;
+  }
+
+  .claude-settings-dialog {
+    width: 100vw !important;
+    max-width: calc(100vw - 16px) !important;
+    height: 85vh !important;
+    max-height: calc(100dvh - 32px) !important;
+    flex-direction: column !important;
+    border-radius: 18px !important;
+  }
+
+  .claude-settings-sidebar {
+    width: 100% !important;
+    height: auto !important;
+    padding: 10px 12px 8px 12px !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    gap: 8px !important;
+  }
+
+  .claude-settings-search-wrap {
+    display: none !important;
+  }
+
+  .claude-settings-group-label {
+    display: none !important;
+  }
+
+  .claude-settings-nav-list {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 6px !important;
+    padding-bottom: 2px !important;
+    scrollbar-width: none !important;
+  }
+
+  .claude-settings-nav-list::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .claude-settings-nav-item {
+    width: auto !important;
+    flex-shrink: 0 !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    border-radius: 20px !important;
+    background: var(--bg-surface-hover, rgba(255, 255, 255, 0.06)) !important;
+    border: 1px solid var(--border-subtle) !important;
+  }
+
+  .claude-settings-nav-item svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  .claude-settings-nav-item.active {
+    background: var(--brand-primary, #d97757) !important;
+    color: #ffffff !important;
+    border-color: var(--brand-primary, #d97757) !important;
+  }
+
+  .claude-settings-main {
+    flex: 1 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .claude-settings-topbar {
+    height: 36px !important;
+    padding: 0 12px !important;
+  }
+
+  .claude-settings-scroll-area {
+    padding: 4px 16px 28px 16px !important;
+  }
+
+  .claude-settings-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding: 12px 0 !important;
+  }
+
+  .claude-settings-row-control {
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+
+  .claude-settings-item-desc {
+    max-width: 100% !important;
+    font-size: 12px !important;
+  }
+
+  .theme-segmented-ctrl {
+    max-width: 220px !important;
+  }
 }

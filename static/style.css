@@ -6254,4 +6254,42 @@ body.dock-vertical .claude-playground-container.has-messages .claude-flow-wrappe
     max-width: calc(100vw - 24px) !important;
     max-height: 60dvh !important;
   }
+
+  /* ── Parameters Popover / Modal on Phone: Never overflow screen ── */
+  .playground-settings-dropdown {
+    position: fixed !important;
+    top: 54px !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    max-width: calc(100vw - 24px) !important;
+    max-height: calc(100dvh - 80px) !important;
+    padding: 14px 16px !important;
+    gap: 12px !important;
+    z-index: 10001 !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+  }
+
+  .playground-settings-dropdown .preset-btns-row {
+    gap: 4px !important;
+  }
+
+  .playground-settings-dropdown .preset-btn {
+    padding: 3px 6px !important;
+    font-size: 10.5px !important;
+    flex: 1 1 auto !important;
+    text-align: center !important;
+  }
+
+  .playground-settings-dropdown .param-group {
+    gap: 6px !important;
+  }
+
+  .playground-settings-dropdown .param-textarea {
+    min-height: 55px !important;
+    max-height: 110px !important;
+    font-size: 12px !important;
+  }
 }
