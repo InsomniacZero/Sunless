@@ -6165,12 +6165,22 @@ body.dock-vertical .claude-playground-container.has-messages .claude-flow-wrappe
     font-size: 12px !important;
   }
 
-  /* ── Input card: compact for phone ── */
+  /* ── Input card & action bar: perfectly fit on phone ── */
+  .claude-flow-wrapper {
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 0 10px 20px 10px !important;
+    box-sizing: border-box !important;
+  }
+
   .claude-input-card {
-    min-height: 80px !important;
+    min-height: 74px !important;
+    width: 100% !important;
     max-width: 100% !important;
     border-radius: 18px !important;
-    padding: 12px 14px 10px 14px !important;
+    padding: 10px 12px 8px 12px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   .claude-textarea {
@@ -6178,6 +6188,80 @@ body.dock-vertical .claude-playground-container.has-messages .claude-flow-wrappe
     min-height: 36px !important;
     max-height: 140px !important;
     padding: 2px 2px 4px 2px !important;
+  }
+
+  .claude-input-bottom-bar {
+    width: 100% !important;
+    gap: 6px !important;
+    padding-top: 2px !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+
+  .claude-input-actions-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+  }
+
+  .claude-attach-btn {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .claude-model-selector {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+  }
+
+  .claude-model-trigger {
+    padding: 3px 6px !important;
+    font-size: 11.5px !important;
+    gap: 4px !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .claude-model-name {
+    max-width: 105px !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .claude-input-actions-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+  }
+
+  .claude-action-icon-btn {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .claude-action-icon-btn svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .claude-send-btn {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    flex-shrink: 0 !important;
   }
 
   /* ── Floating chatbox in active chat: full width on phone ── */
