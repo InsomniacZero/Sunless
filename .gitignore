@@ -17,3 +17,4 @@ static/generated/*
 !static/generated/.gitkeep
 static/fonts/*.zip
 static/fonts/*/
+Discord-ignore in git.md
