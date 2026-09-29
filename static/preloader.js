@@ -112,9 +112,11 @@
 
     // Trigger smooth translateY(-100%) exit transition
     preloaderEl.classList.add('skiper7-exiting');
+    window.dispatchEvent(new CustomEvent('sunless-preloader-exit'));
 
     setTimeout(() => {
       preloaderEl.classList.add('skiper7-hidden');
+      window.dispatchEvent(new CustomEvent('sunless-preloader-complete'));
     }, 1050);
   }
 
