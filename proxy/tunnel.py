@@ -167,7 +167,7 @@ def download_and_extract_ngrok(target_dir: Union[str, Path]) -> Optional[str]:
 def get_public_url() -> Optional[str]:
     """Query local ngrok client API to retrieve active public HTTPS URL."""
     try:
-        with httpx.Client(timeout=2.0) as client:
+        with httpx.Client(timeout=3.0) as client:
             res = client.get(NGROK_INSPECT_URL)
             if res.status_code == 200:
                 data = res.json()
@@ -176,8 +176,11 @@ def get_public_url() -> Optional[str]:
                     url = t.get("public_url", "")
                     if url.startswith("https://"):
                         return url
-                if tunnels:
-                    return tunnels[0].get("public_url")
+                # Fallback: return any tunnel URL (http) if no https yet
+                for t in tunnels:
+                    url = t.get("public_url", "")
+                    if url:
+                        return url
     except Exception:
         pass
     return None
@@ -220,7 +223,19 @@ def start_tunnel(port: int = DEFAULT_PORT) -> Dict[str, Any]:
         }
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Ensure isolated config always exists with correct web_addr,
+    # even if user hasn't set an authtoken yet
+    if not NGROK_CONFIG_PATH.exists():
+        try:
+            with open(NGROK_CONFIG_PATH, "w") as f:
+                f.write(f'version: "2"\nweb_addr: 127.0.0.1:{NGROK_WEB_PORT}\n')
+        except Exception:
+            pass
+
     cmd = [ngrok_bin, "http", str(port), "--log=stdout"]
+
+    # Always pass config to use our isolated web_addr (port 4041)
     if NGROK_CONFIG_PATH.exists():
         cmd.extend(["--config", str(NGROK_CONFIG_PATH)])
 
@@ -246,14 +261,23 @@ def start_tunnel(port: int = DEFAULT_PORT) -> Dict[str, Any]:
         except Exception:
             pass
 
-        # Wait up to 6 seconds for tunnel to register
-        for _ in range(12):
+        # Poll for up to 15 seconds (30 x 0.5s) for tunnel to register.
+        # ngrok on slower networks/devices (phones, first-time TLS handshake)
+        # can take 8-12 seconds to establish the tunnel.
+        for _ in range(30):
             time.sleep(0.5)
+            # Check if process died early (bad authtoken, port conflict, etc.)
+            if proc.poll() is not None:
+                return {
+                    "running": False,
+                    "error": f"Ngrok process exited immediately (code {proc.returncode}). "
+                             "Check your authtoken or network connection.",
+                }
             url = get_public_url()
             if url:
                 return {"running": True, "url": url, "pid": proc.pid}
 
-        return {"running": False, "error": "Tunnel process started but timed out waiting for public URL."}
+        return {"running": False, "error": "Tunnel process started but timed out waiting for public URL. Check your authtoken and network."}
     except Exception as e:
         return {"running": False, "error": str(e)}
 
