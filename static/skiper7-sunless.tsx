@@ -104,39 +104,15 @@ export const Skiper7SunlessPreloader: React.FC<Skiper7PreloaderProps> = ({
         <div className="absolute inset-0 z-30 opacity-40 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px]" />
       </div>
 
-      {/* Foreground Content - Exact Skiper7 Nike Layout */}
-      <div className="relative z-40 flex h-full w-full max-w-[1100px] flex-col items-center justify-between px-6 py-12 md:py-16 text-center">
-        {/* Top Display Heading */}
-        <div className="flex flex-col items-center leading-[0.82] tracking-[-0.04em] font-black uppercase text-[#ea580c] text-[clamp(2.4rem,8.5vw,6.8rem)] drop-shadow-[0_4px_24px_rgba(234,88,12,0.35)]">
-          <span className="text-[#f97316]">{topTitle}</span>
-          <span>{topSubtitle}</span>
-        </div>
-
-        {/* Middle Bar: <logo here> Sunless Gateway */}
-        <div className="flex w-full max-w-[860px] items-center justify-between gap-6 px-4">
-          <div className="flex items-center gap-5">
-            <div className="flex h-14 w-14 md:h-16 md:w-16 items-center justify-center drop-shadow-[0_0_16px_rgba(234,88,12,0.65)]">
-              <img src={logoSrc} alt="Logo" className="h-full w-full object-contain" />
-            </div>
-            <div className="text-left font-black uppercase tracking-[-0.035em] text-white text-[clamp(1.4rem,3.2vw,2.6rem)] leading-none drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
-              {brandTitle} <span className="text-[#f97316]">{brandSubtitle}</span>
-            </div>
+      {/* Foreground Content - Just <logo> Sunless Gateway in middle of screen */}
+      <div className="relative z-40 flex h-full w-full items-center justify-center p-6 text-center">
+        <div className="flex items-center justify-center gap-4 md:gap-7">
+          <div className="flex h-16 w-16 md:h-24 md:w-24 items-center justify-center drop-shadow-[0_0_24px_rgba(234,88,12,0.65)]">
+            <img src={logoSrc} alt="Logo" className="h-full w-full object-contain" />
           </div>
-
-          <div className="flex flex-col items-end text-right uppercase tracking-[-0.03em] leading-none">
-            <span className="text-[clamp(0.7rem,1.2vw,0.9rem)] font-extrabold text-white/50 tracking-wider">
-              {taglineKicker}
-            </span>
-            <span className="text-[clamp(1.1rem,2.2vw,1.7rem)] font-black text-[#f97316] drop-shadow-[0_0_12px_rgba(234,88,12,0.4)]">
-              {taglineSub}
-            </span>
+          <div className="text-left font-black uppercase tracking-[-0.04em] text-white text-[clamp(2.4rem,6.5vw,5.2rem)] leading-none drop-shadow-[0_4px_28px_rgba(0,0,0,0.9)]">
+            {brandTitle} <span className="text-[#f97316]">{brandSubtitle}</span>
           </div>
-        </div>
-
-        {/* Bottom Display Heading */}
-        <div className="flex flex-col items-center leading-[0.82] tracking-[-0.04em] font-black uppercase text-[#ea580c] text-[clamp(2.4rem,8.5vw,6.8rem)] drop-shadow-[0_4px_24px_rgba(234,88,12,0.35)]">
-          <span className="text-[#f97316]">{bottomTitle}</span>
-          <span>{bottomSubtitle}</span>
         </div>
       </div>
 
