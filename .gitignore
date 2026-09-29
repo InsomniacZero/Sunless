@@ -18,3 +18,4 @@ static/generated/*
 static/fonts/*.zip
 static/fonts/*/
 Discord-ignore in git.md
+static/Screenshot*.png
