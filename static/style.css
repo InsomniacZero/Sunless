@@ -6377,3 +6377,79 @@ body.dock-vertical .claude-playground-container.has-messages .claude-flow-wrappe
     font-size: 12px !important;
   }
 }
+
+/* ===================================================================
+   Skiper106 Smooth Caret Input Component (@skiper-ui/skiper106)
+   Fluid spring-animated cursor with canvas & mirror-accurate tracking
+   =================================================================== */
+
+.skiper-smooth-wrapper {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  max-width: 100% !important;
+  vertical-align: middle !important;
+}
+
+.skiper-smooth-wrapper.block-wrapper,
+.skiper-smooth-wrapper:has(#chat-input),
+.skiper-smooth-wrapper:has(.claude-textarea),
+.skiper-smooth-wrapper:has(.param-textarea),
+.skiper-smooth-wrapper:has(.cookie-textarea) {
+  display: block !important;
+  width: 100% !important;
+}
+
+.skiper-smooth-wrapper:has(#input-ngrok-authtoken),
+.skiper-smooth-wrapper:has(.claude-settings-search-input),
+.skiper-smooth-wrapper:has(.select-search-input) {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  display: flex !important;
+}
+
+.skiper-smooth-input {
+  caret-color: transparent !important;
+}
+
+.skiper-smooth-caret {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 2.2px !important;
+  border-radius: 2px !important;
+  background: var(--brand-primary, #d97757) !important;
+  box-shadow: 0 0 8px rgba(217, 119, 87, 0.45) !important;
+  pointer-events: none !important;
+  opacity: 0;
+  z-index: 99 !important;
+  will-change: transform, opacity, height;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.15s ease,
+              height 0.1s ease;
+}
+
+.skiper-smooth-caret.visible {
+  opacity: 1;
+}
+
+.skiper-smooth-caret.active-typing {
+  opacity: 1 !important;
+  animation: none !important;
+  box-shadow: 0 0 10px rgba(217, 119, 87, 0.75) !important;
+  transition: transform 0.05s cubic-bezier(0.16, 1, 0.3, 1), height 0.05s ease !important;
+}
+
+.skiper-smooth-caret.idle-blinking {
+  animation: skiper-smooth-caret-blink 1.05s ease-in-out infinite !important;
+}
+
+@keyframes skiper-smooth-caret-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}

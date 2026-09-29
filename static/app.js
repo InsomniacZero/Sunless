@@ -313,6 +313,7 @@ function initClaudeSettings() {
     if (defaultTab) {
       switchTab(defaultTab);
     }
+    setTimeout(() => initSmoothInputs(), 50);
   };
 
   const closeModal = () => {
@@ -6511,6 +6512,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPlayground();
   initCopyAction();
   initTunnelControls();
+  initSmoothInputs();
 
   // Fleet controls (Desktop & Mobile)
   const handleRefresh = () => {
@@ -6755,6 +6757,201 @@ window.switchArtifactVersion = switchArtifactVersion;
 window.copyActiveArtifactCode = copyActiveArtifactCode;
 window.downloadActiveArtifact = downloadActiveArtifact;
 window.toggleArtifactFullscreen = toggleArtifactFullscreen;
+
+// ===================================================================
+// Skiper106 Smooth Caret Input Component (@skiper-ui/skiper106)
+// Spring-interpolated smooth caret with Canvas & DOM mirror tracking
+// ===================================================================
+
+class SkiperSmoothCaret {
+  constructor(inputEl) {
+    if (!inputEl || inputEl._skiperSmoothCaret) return;
+    this.el = inputEl;
+    this.el._skiperSmoothCaret = this;
+
+    this.isTextarea = this.el.tagName.toLowerCase() === 'textarea';
+    this.canvas = document.createElement('canvas');
+    this.ctx = this.canvas.getContext('2d');
+    
+    this.idleTimer = null;
+    this.mirrorEl = null;
+
+    this.setupDOM();
+    this.bindEvents();
+  }
+
+  setupDOM() {
+    let wrapper = this.el.parentElement;
+    if (!wrapper || !wrapper.classList.contains('skiper-smooth-wrapper')) {
+      wrapper = document.createElement('div');
+      wrapper.className = 'skiper-smooth-wrapper';
+      if (this.isTextarea) {
+        wrapper.classList.add('block-wrapper');
+      }
+      this.el.parentNode.insertBefore(wrapper, this.el);
+      wrapper.appendChild(this.el);
+    }
+    this.wrapper = wrapper;
+
+    this.caret = document.createElement('div');
+    this.caret.className = 'skiper-smooth-caret';
+    this.wrapper.appendChild(this.caret);
+
+    this.el.classList.add('skiper-smooth-input');
+
+    if (this.isTextarea) {
+      this.mirrorEl = document.createElement('div');
+      this.mirrorEl.setAttribute('aria-hidden', 'true');
+      this.mirrorEl.style.cssText = `
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        visibility: hidden;
+        pointer-events: none;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      `;
+      document.body.appendChild(this.mirrorEl);
+    }
+  }
+
+  bindEvents() {
+    const update = () => this.updateCaretPosition();
+    const onActivity = () => {
+      this.caret.classList.add('active-typing', 'visible');
+      this.caret.classList.remove('idle-blinking');
+      update();
+      clearTimeout(this.idleTimer);
+      this.idleTimer = setTimeout(() => {
+        this.caret.classList.remove('active-typing');
+        if (document.activeElement === this.el) {
+          this.caret.classList.add('idle-blinking');
+        }
+      }, 380);
+    };
+
+    this.el.addEventListener('focus', () => {
+      this.caret.classList.add('visible', 'idle-blinking');
+      update();
+    });
+
+    this.el.addEventListener('blur', () => {
+      this.caret.classList.remove('visible', 'active-typing', 'idle-blinking');
+    });
+
+    this.el.addEventListener('input', onActivity);
+    this.el.addEventListener('keydown', onActivity);
+    this.el.addEventListener('keyup', update);
+    this.el.addEventListener('click', update);
+    this.el.addEventListener('select', update);
+    this.el.addEventListener('mouseup', update);
+    this.el.addEventListener('scroll', update);
+
+    window.addEventListener('resize', update);
+  }
+
+  updateCaretPosition() {
+    if (document.activeElement !== this.el) return;
+
+    const start = this.el.selectionStart;
+    const end = this.el.selectionEnd;
+
+    // Hide caret if there's an active text selection range
+    if (start === null || start === undefined || start !== end) {
+      this.caret.style.opacity = '0';
+      return;
+    } else {
+      this.caret.style.opacity = '';
+    }
+
+    const style = window.getComputedStyle(this.el);
+    const fontSize = parseFloat(style.fontSize) || 14;
+    const paddingLeft = parseFloat(style.paddingLeft) || 0;
+    const paddingTop = parseFloat(style.paddingTop) || 0;
+    const borderLeft = parseFloat(style.borderLeftWidth) || 0;
+    const borderTop = parseFloat(style.borderTopWidth) || 0;
+
+    const val = this.el.value || '';
+    const textBefore = val.substring(0, start);
+
+    let caretX = 0;
+    let caretY = 0;
+    let caretHeight = fontSize * 1.18;
+
+    if (!this.isTextarea) {
+      // Single-line text/password/search input
+      let measuredText = textBefore;
+      if (this.el.type === 'password') {
+        measuredText = '•'.repeat(textBefore.length);
+      }
+      this.ctx.font = `${style.fontStyle} ${style.fontVariant} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+      const textWidth = this.ctx.measureText(measuredText).width;
+      
+      const inputHeight = this.el.offsetHeight || parseFloat(style.height) || (fontSize + paddingTop * 2);
+      caretX = paddingLeft + borderLeft + textWidth - this.el.scrollLeft;
+      caretY = Math.max(0, (inputHeight - caretHeight) / 2);
+    } else {
+      // Multi-line textarea with pixel-perfect DOM mirror probe
+      if (this.mirrorEl) {
+        const mirrorStyles = [
+          'boxSizing', 'width', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft',
+          'borderTopWidth', 'borderRightWidth', 'borderBottomWidth', 'borderLeftWidth',
+          'fontFamily', 'fontSize', 'fontWeight', 'fontStyle', 'letterSpacing', 'lineHeight',
+          'textTransform', 'wordSpacing', 'textIndent', 'whiteSpace', 'wordBreak', 'overflowWrap'
+        ];
+        mirrorStyles.forEach(prop => {
+          this.mirrorEl.style[prop] = style[prop];
+        });
+        this.mirrorEl.style.width = `${this.el.clientWidth}px`;
+
+        // Escape HTML
+        const safeText = textBefore
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+
+        this.mirrorEl.innerHTML = `${safeText}<span id="skiper-probe" style="display:inline-block;width:0;height:${caretHeight}px;vertical-align:baseline;">&#8203;</span>`;
+        const probe = this.mirrorEl.querySelector('#skiper-probe');
+
+        if (probe) {
+          caretX = paddingLeft + borderLeft + probe.offsetLeft - this.el.scrollLeft;
+          caretY = paddingTop + borderTop + probe.offsetTop - this.el.scrollTop;
+        } else {
+          caretX = paddingLeft;
+          caretY = paddingTop;
+        }
+      }
+    }
+
+    this.caret.style.height = `${Math.round(caretHeight)}px`;
+    this.caret.style.transform = `translate3d(${Math.round(caretX)}px, ${Math.round(caretY)}px, 0)`;
+  }
+}
+
+function initSmoothInputs() {
+  const selectors = [
+    '#chat-input',
+    '#model-search',
+    '#model-filter-input',
+    '#claude-settings-search',
+    '#input-ngrok-authtoken',
+    '#user-profile-name-input',
+    '#system-prompt-input',
+    '.smooth-input',
+    '[data-smooth-input]'
+  ];
+  document.querySelectorAll(selectors.join(', ')).forEach(el => {
+    if (!el._skiperSmoothCaret) {
+      new SkiperSmoothCaret(el);
+    }
+  });
+}
+
+window.initSmoothInputs = initSmoothInputs;
+window.SkiperSmoothCaret = SkiperSmoothCaret;
 
 
 
