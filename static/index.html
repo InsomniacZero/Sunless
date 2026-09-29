@@ -21,9 +21,66 @@
   <link rel="stylesheet" href="/static/tokens.css?v=76" />
   <link rel="stylesheet" href="/static/style.css?v=76" />
   <link rel="stylesheet" href="/static/glass-dock.css?v=76" />
+  <link rel="stylesheet" href="/static/preloader.css?v=1" />
 </head>
 
 <body data-active-tab="playground">
+  <!-- Skiper7 Nike-Inspired Shadow Slave Preloader -->
+  <div id="sunless-skiper-preloader" class="skiper7-preloader" aria-label="Sunless Gateway Intro Preloader">
+    <!-- Cinematic Montage Background Images -->
+    <div class="skiper7-media-container">
+      <div class="skiper7-images-wrapper">
+        <img src="/static/preloader/3a6a0a99717d5533928eecd2046ec085.jpg" class="skiper7-slide active" alt="Shadow Slave Art 1" />
+        <img src="/static/preloader/40efbc5694229238b0741afcce6c3ddf.jpg" class="skiper7-slide" alt="Shadow Slave Art 2" />
+        <img src="/static/preloader/795c223825dfa27440ac1da9ff8c1109.jpg" class="skiper7-slide" alt="Shadow Slave Art 3" />
+        <img src="/static/preloader/8300bdc6821115d2a56d8d507d2a1dde.jpg" class="skiper7-slide" alt="Shadow Slave Art 4" />
+        <img src="/static/preloader/9ac47ecd3a2f7e405b494a618a35298d.jpg" class="skiper7-slide" alt="Shadow Slave Art 5" />
+        <img src="/static/preloader/a1dfd20723b5e270ea911068051e6bf3.jpg" class="skiper7-slide" alt="Shadow Slave Art 6" />
+        <img src="/static/preloader/cbbb353701a4e0545a5903413d71c77e.jpg" class="skiper7-slide" alt="Shadow Slave Art 7" />
+      </div>
+      <div class="skiper7-overlay-grain"></div>
+      <div class="skiper7-scanlines"></div>
+      <div class="skiper7-overlay-vignette"></div>
+    </div>
+
+    <!-- Foreground Content (Skiper7 / Nike After Dark Typography & Layout) -->
+    <div class="skiper7-content">
+      <!-- Top Large Display Heading -->
+      <div class="skiper7-heading-top">
+        <span class="skiper7-text-line">SHADOW SLAVE</span>
+        <span class="skiper7-text-line accent">DOMAIN©2025</span>
+      </div>
+
+      <!-- Middle Bar: <logo here> Sunless Gateway -->
+      <div class="skiper7-middle-bar">
+        <div class="skiper7-brand-cluster">
+          <div class="skiper7-logo-box">
+            <img src="/logo.svg" class="skiper7-logo-img" alt="Sunless Logo" />
+          </div>
+          <div class="skiper7-brand-title">Sunless <span>Gateway</span></div>
+        </div>
+        <div class="skiper7-tagline">
+          <span class="skiper7-tagline-kicker">LOST FROM LIGHT</span>
+          <span class="skiper7-tagline-sub">[FATED] DOMAIN</span>
+        </div>
+      </div>
+
+      <!-- Bottom Large Display Heading -->
+      <div class="skiper7-heading-bottom">
+        <span class="skiper7-text-line">STEP INTO</span>
+        <span class="skiper7-text-line accent">THE SHADOWS.</span>
+      </div>
+    </div>
+
+    <!-- Footer Progress Indicator -->
+    <div class="skiper7-footer">
+      <div class="skiper7-progress-track">
+        <div class="skiper7-progress-fill"></div>
+      </div>
+      <div class="skiper7-skip-prompt">CLICK ANYWHERE OR PRESS ESC TO ENTER</div>
+    </div>
+  </div>
+
   <div id="toast-container"></div>
 
   <div id="app">
@@ -1247,6 +1304,7 @@
   <script src="/static/vendor/react.min.js"></script>
   <script src="/static/vendor/react-dom.min.js"></script>
   <script src="/static/vendor/babel.min.js" defer></script>
+  <script src="/static/preloader.js?v=1"></script>
   <script src="/static/app.js?v=79"></script>
   <script src="/static/glass-dock.js?v=76"></script>
 </body>
