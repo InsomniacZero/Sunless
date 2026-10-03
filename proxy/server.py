@@ -177,9 +177,13 @@ async def chat_completions(request: Request) -> Response:
                     "model": model,
                     "choices": [{
                         "index": 0,
-                        "delta": {"content": f"\n\n[Sunless Proxy Stream Error: {str(e)}]"},
+                        "delta": {},
                         "finish_reason": "error",
                     }],
+                    "error": {
+                        "message": f"Sunless Proxy Stream Error: {str(e)}",
+                        "type": "proxy_error",
+                    },
                 }
                 yield f"data: {json.dumps(err_chunk)}\n\n".encode("utf-8")
                 yield b"data: [DONE]\n\n"
