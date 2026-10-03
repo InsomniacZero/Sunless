@@ -74,15 +74,15 @@ if [ "$IS_TERMUX" = false ]; then
     fi
 fi
 
-# Check and install minimal dependencies (pure Python: starlette, uvicorn, httpx, curl_cffi)
+# Check and install minimal dependencies (pure Python: starlette, uvicorn, httpx)
 NEED_INSTALL=false
-$PY_CMD -c "import starlette, uvicorn, httpx, curl_cffi" 2>/dev/null || NEED_INSTALL=true
+$PY_CMD -c "import starlette, uvicorn, httpx" 2>/dev/null || NEED_INSTALL=true
 
 if [ "$NEED_INSTALL" = true ]; then
     echo -e "${CYAN}Installing required lightweight packages (takes ~5 seconds)...${RESET}"
     $PY_CMD -m pip install -q -r requirements.txt || {
         echo -e "${YELLOW}Retrying package installation with pip...${RESET}"
-        $PY_CMD -m pip install starlette uvicorn httpx curl_cffi
+        $PY_CMD -m pip install starlette uvicorn httpx
     }
     echo -e "${GREEN}✓ Dependencies verified.${RESET}\n"
 fi
