@@ -193,13 +193,16 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
   --chat-font: var(--font-sans);
 
-  /* Terracotta Brand Accent */
-  --brand-primary:      #d97757;
-  --brand-hover:        #c86646;
-  --brand-active:       #b75536;
-  --brand-light:        #f5ece8;
-  --brand-glow:         rgba(217, 119, 87, 0.22);
-  --brand-subtle:       rgba(217, 119, 87, 0.10);
+  /* Shadow Slave Brand Accent - Imperial Gold & Porcelain White */
+  --brand-primary:      #d4af37;
+  --brand-hover:        #e5c158;
+  --brand-active:       #c59b27;
+  --brand-light:        #fcf8ec;
+  --brand-glow:         rgba(212, 175, 55, 0.28);
+  --brand-subtle:       rgba(212, 175, 55, 0.12);
+  --gold-trim:          #d4af37;
+  --gold-trim-glow:     rgba(212, 175, 55, 0.35);
+  --porcelain-white:    #f8f9fa;
 
   /* Status Colors */
   --color-success:      #10b981;
@@ -252,30 +255,30 @@
   --sidebar-width:      270px;
 }
 
-/* Dark Mode (Default) */
+/* Dark Mode (Default) - Shadow Slave: Obsidian Black, Porcelain White, Gold Trims */
 [data-theme="dark"], :root {
-  --bg-primary:         #141414;
-  --bg-secondary:       #121212;
-  --bg-sidebar:         #121212;
-  --bg-surface:         #1c1c1c;
-  --bg-surface-hover:   #242424;
-  --bg-elevated:        #262626;
-  --bg-input:           #171717;
-  --bg-glass:           rgba(20, 20, 20, 0.88);
+  --bg-primary:         #08080c;
+  --bg-secondary:       #0d0d14;
+  --bg-sidebar:         #0a0a0f;
+  --bg-surface:         #12121a;
+  --bg-surface-hover:   #191924;
+  --bg-elevated:        #161622;
+  --bg-input:           #0f0f16;
+  --bg-glass:           rgba(8, 8, 12, 0.90);
 
-  --border-subtle:      #262626;
-  --border-medium:      #333333;
-  --border-strong:      #484848;
-  --border-focus:       var(--brand-primary);
+  --border-subtle:      rgba(212, 175, 55, 0.16);
+  --border-medium:      rgba(212, 175, 55, 0.28);
+  --border-strong:      rgba(212, 175, 55, 0.50);
+  --border-focus:       #d4af37;
 
-  --text-primary:       #ede9e3;
-  --text-secondary:     #a8a29e;
-  --text-muted:         #78716c;
-  --text-inverse:       #141414;
+  --text-primary:       #f8f9fa; /* Porcelain White */
+  --text-secondary:     #c5cad3;
+  --text-muted:         #7a8090;
+  --text-inverse:       #08080c;
 
-  --shadow-sm:          0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-md:          0 4px 12px rgba(0, 0, 0, 0.45);
-  --shadow-lg:          0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-sm:          0 1px 3px rgba(0, 0, 0, 0.5), 0 0 6px rgba(212, 175, 55, 0.06);
+  --shadow-md:          0 4px 16px rgba(0, 0, 0, 0.65), 0 0 14px rgba(212, 175, 55, 0.12);
+  --shadow-lg:          0 8px 32px rgba(0, 0, 0, 0.8), 0 0 24px rgba(212, 175, 55, 0.2);
 }
 
 /* Light Mode */
